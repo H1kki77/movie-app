@@ -1,0 +1,30 @@
+.movie-list {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 15px 3rem;
+
+    &__grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 24px;
+        margin-top: 35px;
+    }
+}
+
+@media (max-width: 992px) {
+    .movie-list__grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .movie-list__grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .movie-list__grid {
+        grid-template-columns: 1fr;
+    }
+}

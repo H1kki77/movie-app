@@ -1,0 +1,160 @@
+.movie-card {
+    background-color: #151c2c;
+    border: 1px solid #1e293b;
+    border-radius: 16px;
+    overflow: hidden;
+    transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1),
+        border-color 0.4s,
+        box-shadow 0.4s;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+
+    &:hover {
+        transform: translateY(-8px);
+        border-color: #2563eb;
+        box-shadow: 0 12px 24px -10px rgba(37, 99, 235, 0.35);
+    }
+
+    &:hover &__poster {
+        transform: scale(1.05);
+    }
+
+    &__poster-wrap {
+        position: relative;
+        overflow: hidden;
+        height: 350px;
+    }
+
+    &__poster {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+    }
+
+    &__rating {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        background: rgba(15, 23, 42, 0.85);
+        backdrop-filter: blur(4px);
+        border: 1px solid rgba(255, 222, 0, 0.3);
+        color: #ffde00;
+        padding: 4px 10px;
+        border-radius: 20px;
+        font-weight: 700;
+        font-size: 0.9rem;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+    }
+
+    &__body {
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+    }
+
+    &__title {
+        font-size: 1.15rem;
+        font-weight: 700;
+        color: #f8fafc;
+        margin: 0 0 8px;
+        line-height: 1.4;
+        display: -webkit-box;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    &__overview {
+        color: #94a3b8;
+        font-size: 0.9rem;
+        line-height: 1.5;
+        margin: 0 0 15px;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    &__footer {
+        margin-top: auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-top: 1px solid #1e293b;
+        padding-top: 15px;
+    }
+
+    &__year {
+        color: #64748b;
+        font-size: 0.85rem;
+        font-weight: 500;
+    }
+
+    &__detail-btn {
+        background: transparent;
+        border: 1px solid #2563eb;
+        color: #38bdf8;
+        padding: 5px 12px;
+        border-radius: 6px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
+
+        &:hover {
+            background-color: #2563eb;
+            color: #fff;
+            box-shadow: 0 0 10px rgba(37, 99, 235, 0.3);
+        }
+    }
+
+    &__actions {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    &__favorite-btn {
+        background: transparent;
+        border: none;
+        padding: 0;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        outline: none;
+        transition: transform 0.2s ease;
+
+        &:hover {
+            transform: scale(1.15);
+        }
+
+        &:active {
+            transform: scale(0.95);
+        }
+    }
+
+    &__favorite-icon {
+        width: 22px;
+        height: 22px;
+        fill: none;
+        stroke: #64748b; // Unfilled state: dark gray outline
+        stroke-width: 2;
+        transition: fill 0.3s ease, stroke 0.3s ease, filter 0.3s ease;
+
+        .movie-card__favorite-btn:hover & {
+            stroke: #38bdf8; // Hover outline: light blue
+        }
+
+        .movie-card__favorite-btn--active & {
+            fill: #2563eb; // Active fill: brand blue
+            stroke: #2563eb; // Active outline: brand blue
+            filter: drop-shadow(0 0 4px rgba(37, 99, 235, 0.6)); // Brand glow
+        }
+    }
+}
