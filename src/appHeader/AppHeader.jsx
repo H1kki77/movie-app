@@ -10,7 +10,7 @@ const AppHeader = () => {
                 </Link>
 
                 <nav className="header__nav">
-                    <a href="#" className="header__link">♥ Favorites</a>
+                    <Link to="/favorite" className="header__link">♥ Favorites</Link>
                 </nav>
             </div>
         </header>
