@@ -66,6 +66,7 @@ const MainPage = () => {
     useEffect(() => {
         setIsError(false);
         onRequest(1, true);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [query, filter]);
 
     const onSearch = (term) => {

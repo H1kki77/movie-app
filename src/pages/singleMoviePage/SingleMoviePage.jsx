@@ -28,6 +28,7 @@ const SingleMoviePage = () => {
                 setIsError(true);
                 setIsLoading(false);
             })
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [movieId]);
 
     const loader = isLoading ? <Loader /> : null;
