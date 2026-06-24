@@ -8,7 +8,7 @@ import Loader from "../../loader/Loader";
 import './MainPage.scss';
 
 const MainPage = () => {
-    const { getPopularMovies, searchMovies } = MovieService();
+    const { getAllMovies, searchMovies } = MovieService();
 
     const [movies, setMovies] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
@@ -17,6 +17,7 @@ const MainPage = () => {
     const [query, setQuery] = useState('');
     const [moviesEnded, setMoviesEnded] = useState(false);
     const [nothingFound, setNothingFound] = useState(false);
+    const [filter, setFilter] = useState('popular');
 
     const listRef = useRef(null);
 
@@ -30,9 +31,7 @@ const MainPage = () => {
             setIsLoading(true);
             setNothingFound(false);
         }
-
-        let request = query === '' ? getPopularMovies(pageNum) : searchMovies(query, pageNum);
-
+        let request = query === '' ? getAllMovies(filter, pageNum) : searchMovies(query, pageNum);
         request
             .then(data => {
                 setMoviesEnded(data.length < 20);
@@ -62,21 +61,28 @@ const MainPage = () => {
                 setIsError(true);
                 setIsLoading(false);
             });
-
     });
 
     useEffect(() => {
         setIsError(false);
         onRequest(1, true);
-    }, [query]);
+    }, [query, filter]);
 
     const onSearch = (term) => {
         setQuery(term);
     }
 
+    const onFilterChange = (newFilter) => {
+        setFilter(newFilter);
+        setQuery('');
+    }
+
     return (
         <>
-            <SearchPanel onSearch={onSearch} />
+            <SearchPanel
+                onSearch={onSearch}
+                currentFilter={filter}
+                onFilterChange={onFilterChange} />
             {content}
             {errorMessage}
             {loader}

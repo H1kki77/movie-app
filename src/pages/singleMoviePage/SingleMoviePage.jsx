@@ -48,6 +48,10 @@ export default SingleMoviePage;
 const View = ({ movie }) => {
     const { isFavorite, toggleFavorite } = useContext(FavoritesContext);
     const favorited = isFavorite(movie.id)
+    const currentDate = new Date().toLocaleDateString('en-CA');
+    const isSoon = movie.releaseDate && new Date(movie.releaseDate) > new Date(currentDate);
+    const diffYears = (new Date(currentDate) - new Date(movie.releaseDate)) / (1000 * 60 * 60 * 24 * 365);
+    const isNew = movie.releaseDate && diffYears >= 0 && diffYears <= 1;
 
     return (
         <div className="single-movie">
@@ -67,6 +71,12 @@ const View = ({ movie }) => {
                 <div className="single-movie__info">
                     <div className="single-movie__title-wrapper">
                         <h1 className="single-movie__title">{movie.title}</h1>
+                        {isSoon ?
+                            <span className="single-movie__soon">Soon</span>
+                            :
+                            null
+                        }
+                        {isNew ? <span className="single-movie__new">New</span> : null}
                         <button
                             onClick={() => toggleFavorite(movie)}
                             className={`single-movie__favorite-btn ${favorited ? 'single-movie__favorite-btn--active' : ''}`}
@@ -79,7 +89,7 @@ const View = ({ movie }) => {
                     </div>
 
                     <div className="single-movie__meta">
-                        <span className="single-movie__rating">★ {movie.voteAverage}</span>
+                        {!isSoon ? <span className="single-movie__rating">★ {movie.voteAverage}</span> : null}
                         <span className="single-movie__year">Released at: {movie.releaseDate}</span>
                         <span className="single-movie__runtime">Duration: {movie.runtime} minutes</span>
                     </div>
@@ -100,7 +110,7 @@ const View = ({ movie }) => {
 
                     <div className="single-movie__detail">
                         <span>Country:</span>
-                        <span>{movie.originCountry}</span>
+                        <span>{movie.originCountry ? movie.originCountry.join(', ') : 'No Data'}</span>
                     </div>
 
                     <Link to="/" className="single-movie__back">← Back to main page</Link>

@@ -8,10 +8,20 @@ const MovieCard = ({ title, overview, posterPath, releaseDate, voteAverage, id }
 
     const { isFavorite, toggleFavorite } = useContext(FavoritesContext);
     const favorited = isFavorite(id);
+    const currentDate = new Date().toLocaleDateString('en-CA');
+    const isSoon = releaseDate && new Date(releaseDate) > new Date(currentDate);
+    const diffYears = (new Date(currentDate) - new Date(releaseDate)) / (1000 * 60 * 60 * 24 * 365);
+    const isNew = releaseDate && diffYears >= 0 && diffYears <= 1;
+
     return (
         <div className="movie-card">
             <div className="movie-card__poster-wrap">
-                <span className="movie-card__rating">★ {voteAverage || '0.0'}</span>
+                {isSoon ?
+                    <span className="movie-card__soon">Soon</span>
+                    :
+                    <span className="movie-card__rating">★ {voteAverage || '0.0'}</span>
+                }
+                {isNew ? <span className="movie-card__new">New</span> : null}
                 <img
                     src={posterPath || posterNotFound}
                     className="movie-card__poster"

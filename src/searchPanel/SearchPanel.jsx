@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import './SearchPanel.scss';
 
-const SearchPanel = ({ onSearch }) => {
+const SearchPanel = ({ onSearch, currentFilter, onFilterChange }) => {
 
     const [term, setTerm] = useState('');
 
@@ -31,7 +31,24 @@ const SearchPanel = ({ onSearch }) => {
                     Search
                 </button>
             </form>
-        </section>
+            <div className="search__filters">
+                <button
+                    className={`search__filter-btn ${currentFilter === 'popular' ? 'search__filter-btn--active' : null}`}
+                    onClick={() => onFilterChange('popular')}>
+                    Popular
+                </button>
+                <button
+                    className={`search__filter-btn ${currentFilter === 'top_rated' ? 'search__filter-btn--active' : null}`}
+                    onClick={() => onFilterChange('top_rated')}>
+                    Top Rated
+                </button>
+                <button
+                    className={`search__filter-btn ${currentFilter === 'upcoming' ? 'search__filter-btn--active' : null}`}
+                    onClick={() => onFilterChange('upcoming')}>
+                    New
+                </button>
+            </div>
+        </section >
     )
 }
 export default SearchPanel;

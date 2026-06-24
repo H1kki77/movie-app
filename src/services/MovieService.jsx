@@ -18,8 +18,8 @@ const MovieService = () => {
         return data;
     }
 
-    const getPopularMovies = async (pageNum) => {
-        const popularMovies = await getResource(`${_apiBase}/movie/popular?api_key=${_apiKey}&page=${pageNum}`);
+    const getAllMovies = async (category, pageNum) => {
+        const popularMovies = await getResource(`${_apiBase}/movie/${category}?api_key=${_apiKey}&page=${pageNum}`);
         return popularMovies.results.map(movie => _transformAllMovies(movie));
     }
 
@@ -63,6 +63,6 @@ const MovieService = () => {
         }
     }
 
-    return { getPopularMovies, searchMovies, getMovie };
+    return { getAllMovies, searchMovies, getMovie };
 }
 export default MovieService;
