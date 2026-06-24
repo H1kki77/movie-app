@@ -14,7 +14,7 @@ const MovieCard = ({ title, overview, posterPath, releaseDate, voteAverage, id }
     const isNew = releaseDate && diffYears >= 0 && diffYears <= 1;
 
     return (
-        <div className="movie-card">
+        <Link to={`/movies/${id}`} className="movie-card" style={{ textDecoration: 'none', color: 'inherit' }} >
             <div className="movie-card__poster-wrap">
                 {isSoon ?
                     <span className="movie-card__soon">Soon</span>
@@ -39,7 +39,11 @@ const MovieCard = ({ title, overview, posterPath, releaseDate, voteAverage, id }
                     </span>
                     <div className="movie-card__actions">
                         <button
-                            onClick={() => toggleFavorite({ id, title, overview, posterPath, releaseDate, voteAverage })}
+                            onClick={(e) => {
+                                e.preventDefault();
+                                e.stopPropagation();
+                                toggleFavorite({ id, title, overview, posterPath, releaseDate, voteAverage })
+                            }}
                             className={`movie-card__favorite-btn ${favorited ? 'movie-card__favorite-btn--active' : ''}`}
                             aria-label="Toggle Favorite"
                         >
@@ -47,11 +51,10 @@ const MovieCard = ({ title, overview, posterPath, releaseDate, voteAverage, id }
                                 <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
                             </svg>
                         </button>
-                        <Link to={`/movies/${id}`} style={{ textDecoration: 'none' }} className="movie-card__detail-btn">Details</Link>
                     </div>
                 </div>
             </div>
-        </div>
+        </Link >
     )
 }
 export default MovieCard;
